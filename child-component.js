@@ -4,7 +4,8 @@ class ChildComponent extends LitElement{
     static get properties(){
         return {
           childMessage2:{ type: String},
-          childMessage3:{ type: String}
+          childMessage3:{ type: String},
+          propBtnColor:{ type: String}
         }
     }
 
@@ -16,26 +17,47 @@ class ChildComponent extends LitElement{
         <input type="text" .value="${this.childMessage3}" @input="${this.inputMethod}">
         </br>
         </br>
-        <button class="buttonRed" @click="${this.eventChangeColor}" > RED </button>
+        <button class="buttonRed" @click="${this.eventChangeColorRed}" > RED </button>
         </br>
         </br>
-        <button class="buttonBlue" @click="${this.eventChangeColor}" > BLUE </button>
+        <button class="buttonBlue" @click="${this.eventChangeColorBlue}" > BLUE </button>
         </br>
         </br>
-        <button class="buttonGreen" @click="${this.eventChangeColor}" > GREEN </button>
+        <button class="buttonGreen" @click="${this.eventChangeColorGreen}" > GREEN </button>
         `;
     }
-    eventChangeColor() {
-      //this.shadowRoot.getElementById('Parent').style.backgroundColor = "blue";
-      //document.querySelector('Parent').element.styles = "backgroundColor = 'blue'";
-      /*let a = document.getElementsById(${this.id});
-      a.style.backgroundColor = "blue";*/
-      //document.querySelector('Parent').css = "{background-color: #blue;}";
-      return html`
-      html {
-        --parent-component-background-color: blue;
+    eventChangeColorBlue() {
+      this.propBtnColor = 'blue';
+      this.dispatchEvent(new CustomEvent('someone-push-me',
+      {
+        detail: {
+          bubbles: true, 
+          el: this
+        }
       }
-      `;
+    ));
+    }
+    eventChangeColorGreen() {
+      this.propBtnColor = 'green';
+      this.dispatchEvent(new CustomEvent('someone-push-me',
+      {
+        detail: {
+          bubbles: true, 
+          el: this
+        }
+      }
+    ));
+    }
+    eventChangeColorRed() {
+      this.propBtnColor = 'red';
+      this.dispatchEvent(new CustomEvent('someone-push-me',
+      {
+        detail: {
+          bubbles: true, 
+          el: this
+        }
+      }
+    ));
     }
 
     inputMethod(event){
@@ -80,6 +102,7 @@ class ChildComponent extends LitElement{
     constructor() {
       super();
       this.childMessage3 = 'Mensaje del componente padre';
+      this.propBtnColor = 'green';
     }
 }
 customElements.define('child-component',ChildComponent)
