@@ -31,6 +31,13 @@ class ParentComponent extends LitElement{
     someonePush(event) {
       this.propColor = (event.detail.el.propBtnColor);
     }
+    static get styles(){
+        return css`
+        h3{
+            color: white;
+        }
+        `
+    }
 }
 
 customElements.define('parent-component',ParentComponent);
